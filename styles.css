@@ -1,0 +1,564 @@
+:root {
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #2d2d2d;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --accent: #6c5ce7;
+    --accent-hover: #8075e5;
+    --danger: #e74c3c;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    color: var(--accent);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.nav-btn {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: var(--accent);
+}
+
+.nav-btn.active {
+    background-color: var(--accent);
+}
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.game-card {
+    background-color: var(--bg-secondary);
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+}
+
+.game-preview {
+    height: 200px;
+    background-color: var(--bg-primary);
+    border-radius: 5px;
+    margin: 1rem 0;
+    overflow: hidden;
+    position: relative;
+}
+
+.upload-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-secondary);
+    border: 2px dashed var(--accent);
+    transition: all 0.3s ease;
+}
+
+.upload-preview:hover {
+    border-color: var(--accent-hover);
+    background-color: var(--bg-primary);
+}
+
+.game-file-input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.upload-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    color: var(--text-secondary);
+    pointer-events: none;
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: var(--accent);
+}
+
+.upload-game-card {
+    position: relative;
+}
+
+.upload-game-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, var(--accent) 0%, transparent 100%);
+    opacity: 0.1;
+    transition: opacity 0.3s ease;
+}
+
+.upload-game-card:hover::before {
+    opacity: 0.2;
+}
+
+.game-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.game-card:hover .game-preview img {
+    transform: scale(1.1);
+}
+
+.snake-preview {
+    background-image: url('./image/cute-play-dough-snakes-with-green-background.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.game-instructions {
+    text-align: left;
+    padding: 1rem;
+    background-color: var(--bg-primary);
+    border-radius: 5px;
+}
+
+.game-instructions h3 {
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.game-instructions ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.game-instructions li {
+    color: var(--text-secondary);
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.saves-container {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 10px;
+}
+
+.upload-section {
+    margin-bottom: 2rem;
+}
+
+input[type="file"] {
+    display: block;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    border-radius: 5px;
+}
+
+button {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--accent);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--accent-hover);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    position: relative;
+    background-color: var(--bg-secondary);
+    margin: 2rem auto;
+    padding: 2rem;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 10px;
+}
+
+.close-btn {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.close-btn:hover {
+    color: var(--danger);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--accent);
+}
+
+.score-container {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2rem;
+    color: var(--text-primary);
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--accent);
+}
+
+#restartBtn, #saveBtn {
+    padding: 0.5rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--accent);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#restartBtn:hover, #saveBtn:hover {
+    background-color: var(--accent-hover);
+}
+
+#gameContainer {
+    min-height: 400px;
+    background-color: var(--bg-primary);
+    border-radius: 5px;
+    margin-top: 1rem;
+    padding: 20px;
+}
+
+#gameContainer canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+.contacts-container {
+    background-color: var(--bg-secondary);
+    padding: 2rem;
+    border-radius: 10px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.contacts-container h2 {
+    text-align: center;
+    color: var(--accent);
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.team-member {
+    background-color: var(--bg-primary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+}
+
+.team-member h3 {
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+}
+
+.team-member p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* Auth Styles */
+.auth-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-left: auto;
+}
+
+.auth-btn {
+    background-color: var(--accent);
+    color: var(--text-primary);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.auth-btn:hover {
+    background-color: var(--accent-hover);
+}
+
+.auth-modal .modal-content {
+    max-width: 400px;
+}
+
+.auth-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+}
+
+.auth-modal input {
+    padding: 0.5rem;
+    border: 1px solid var(--bg-secondary);
+    border-radius: 5px;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+}
+
+/* Game Controls */
+.game-controls {
+    display: flex;
+    gap: 1rem;
+}
+
+.control-btn {
+    background-color: var(--accent);
+    color: var(--text-primary);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.control-btn:hover {
+    background-color: var(--accent-hover);
+}
+
+.game-stats {
+    display: flex;
+    gap: 2rem;
+    font-size: 1.2rem;
+}
+
+.stat {
+    color: var(--text-primary);
+}
+
+/* Responsive Game Container */
+#gameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+#gameContainer.tetris {
+    min-height: 600px;
+}
+
+#gameContainer.snake {
+    min-height: 400px;
+}
+
+/* Progress Section */
+.progress-container {
+    background-color: var(--bg-secondary);
+    border-radius: 10px;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.progress-stats {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: var(--bg-primary);
+    border-radius: 8px;
+}
+
+.progress-stats h3,
+.game-history h3 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+}
+
+.history-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.game-stat {
+    background-color: var(--bg-primary);
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.game-stat:hover {
+    transform: translateY(-5px);
+}
+
+.game-stat h4 {
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.stat-details p {
+    margin: 0.5rem 0;
+    color: var(--text-secondary);
+}
+
+.stat-details span {
+    color: var(--text-primary);
+    font-weight: bold;
+}
+
+#totalGamesPlayed,
+#totalScore {
+    font-size: 1.2rem;
+    margin: 0.5rem 0;
+}
+
+.user-games-container {
+    margin-top: 2rem;
+}
+
+.user-games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.user-game-card {
+    background-color: var(--bg-secondary);
+    padding: 1rem;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-game-info {
+    flex: 1;
+}
+
+.user-game-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.user-game-button {
+    padding: 0.5rem;
+    background-color: var(--accent);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.user-game-button:hover {
+    background-color: var(--accent-hover);
+}
+
+.user-game-button.delete {
+    background-color: var(--danger);
+}
+
+.user-game-button.delete:hover {
+    background-color: #ff6b6b;
+}

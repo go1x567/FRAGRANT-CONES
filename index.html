@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>АРОМАТНЫЕ ШИШЕЧКИ - Cloud Gaming</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>АРОМАТНЫЕ ШИШЕЧКИ</h1>
+            <nav>
+                <button class="nav-btn active" data-section="games">Games</button>
+                <button class="nav-btn" data-section="progress">Progress</button>
+                <button class="nav-btn" data-section="contacts">Contacts</button>
+                <div class="auth-container">
+                    <button id="loginBtn" class="auth-btn">Login</button>
+                    <button id="registerBtn" class="auth-btn">Register</button>
+                    <div id="userInfo" style="display: none;">
+                        <span id="username"></span>
+                        <button id="logoutBtn" class="auth-btn">Logout</button>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section id="games" class="section active">
+                <div class="games-grid">
+                    <div class="game-card" onclick="startGame('tetris')">
+                        <h2>Tetris</h2>
+                        <div class="game-preview">
+                            <img src="https://3dnews.ru/assets/external/illustrations/2023/05/31/1087671/0.jpg" alt="Tetris Preview">
+                        </div>
+                        <div class="game-instructions">
+                            <h3>How to Play:</h3>
+                            <ul>
+                                <li>← → : Move left/right</li>
+                                <li>↑ : Rotate piece</li>
+                                <li>↓ : Drop faster</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="game-card" onclick="startGame('snake')">
+                        <h2>Snake</h2>
+                        <div class="game-preview snake-preview"></div>
+                        <div class="game-instructions">
+                            <h3>How to Play:</h3>
+                            <ul>
+                                <li>← → ↑ ↓ : Control snake</li>
+                                <li>Collect food to grow</li>
+                                <li>Don't hit walls or yourself!</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="game-card upload-game-card">
+                        <h2>Upload Your Game</h2>
+                        <div class="game-preview upload-preview">
+                            <input type="file" id="gameFileInput" accept=".js" class="game-file-input">
+                            <label for="gameFileInput" class="upload-label">
+                                <i class="upload-icon">+</i>
+                                <span>Choose a game file</span>
+                            </label>
+                        </div>
+                        <div class="game-instructions">
+                            <h3>How to Upload:</h3>
+                            <ul>
+                                <li>Select your .js game file</li>
+                                <li>File will be stored in cloud</li>
+                                <li>Play your game anytime!</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="progress" class="section">
+                <h2>Your Gaming Progress</h2>
+                <div class="progress-container">
+                    <div class="progress-stats">
+                        <h3>Overall Statistics</h3>
+                        <div id="totalGamesPlayed">Total Games Played: 0</div>
+                        <div id="totalScore">Total Score: 0</div>
+                    </div>
+                    <div class="game-history">
+                        <h3>Game History</h3>
+                        <div class="history-grid">
+                            <div class="game-stat tetris-stat">
+                                <h4>Tetris</h4>
+                                <div class="stat-details">
+                                    <p>Games Played: <span id="tetrisPlayed">0</span></p>
+                                    <p>High Score: <span id="tetrisHighScore">0</span></p>
+                                    <p>Last Played: <span id="tetrisLastPlayed">Never</span></p>
+                                </div>
+                            </div>
+                            <div class="game-stat snake-stat">
+                                <h4>Snake</h4>
+                                <div class="stat-details">
+                                    <p>Games Played: <span id="snakePlayed">0</span></p>
+                                    <p>High Score: <span id="snakeHighScore">0</span></p>
+                                    <p>Last Played: <span id="snakeLastPlayed">Never</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="saves" class="section">
+                <div class="saves-container">
+                    <div class="upload-section">
+                        <h2>Upload Save File</h2>
+                        <input type="file" id="saveFileInput" accept=".sav,.json">
+                        <button onclick="uploadSave()">Upload</button>
+                    </div>
+                    <div class="saves-list">
+                        <h2>Your Saves</h2>
+                        <div id="savesList"></div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="contacts" class="section">
+                <div class="contacts-container">
+                    <h2>Development Team</h2>
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <h3>Шлегель Матвей</h3>
+                            <p>Creation of presentations</p>
+                        </div>
+                        <div class="team-member">
+                            <h3>Антонов Георгий</h3>
+                            <p>Design of presentations</p>
+                        </div>
+                        <div class="team-member">
+                            <h3>Маланин Лев</h3>
+                            <p>Frontend Developer</p>
+                        </div>
+                        <div class="team-member">
+                            <h3>Чернов Данила</h3>
+                            <p>Assistant</p>
+                        </div>
+                        <div class="team-member">
+                            <h3>Ковальчук Сергей</h3>
+                            <p>Assistant</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="gameModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="score-container">
+                        <div id="currentScore">Score: 0</div>
+                        <div id="highScore">High Score: 0</div>
+                    </div>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div id="gameContainer"></div>
+                <div class="modal-footer">
+                    <button id="restartBtn">Restart</button>
+                    <button id="saveBtn">Save Game</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auth Modals -->
+        <div id="loginModal" class="modal auth-modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Login</h2>
+                <form id="loginForm">
+                    <input type="text" id="loginUsername" placeholder="Username" required>
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="registerModal" class="modal auth-modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>Register</h2>
+                <form id="registerForm">
+                    <input type="text" id="regUsername" placeholder="Username" required>
+                    <input type="password" id="regPassword" placeholder="Password" required>
+                    <input type="password" id="regConfirmPassword" placeholder="Confirm Password" required>
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="tetris.js"></script>
+    <script src="snake.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
